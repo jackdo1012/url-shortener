@@ -1,0 +1,17 @@
+{
+    "name": "url-shortener",
+    "version": "1.0.0",
+    "description": "URL shortener by Jack Do",
+    "main": "index.js",
+    "author": "Jack Do",
+    "license": "MIT",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "dependencies": {
+        "dotenv": "^10.0.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.1",
+        "pg": "^8.7.1"
+    }
+}
