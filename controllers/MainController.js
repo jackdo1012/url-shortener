@@ -22,7 +22,7 @@ class MainController {
     async add(req, res) {
         try {
             let { slug, link } = req.body
-            const check = /['"]|(--)/
+            const check = /['"]|(--)| /
             const slugFind = await pool.query(
                 "SELECT * FROM url_list WHERE slug = $1",
                 [slug]
@@ -32,7 +32,7 @@ class MainController {
                 case check.test(link):
                     return res.json({
                         success: false,
-                        message: `Invalid character in input: ', ", --`,
+                        message: `Invalid character`,
                     })
             }
             if (slugFind.rows.length > 0) {
