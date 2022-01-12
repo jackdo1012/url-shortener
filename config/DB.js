@@ -1,6 +1,6 @@
-const Pool = require("pg").Pool
+const Pool = require("pg").Pool;
 
-const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`
+const connectionString = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 
 const pool =
     process.env.NODE_ENV === "production"
@@ -8,6 +8,14 @@ const pool =
               connectionString: process.env.DATABASE_URL,
               ssl: { rejectUnauthorized: false },
           })
-        : new Pool({ connectionString })
+        : new Pool({ connectionString });
 
-module.exports = pool
+pool.query("SELECT * FROM url_list", (err, _) => {
+    if (err) {
+        pool.query(
+            `CREATE TABLE url_list ( url_id SERIAL PRIMARY KEY, slug varchar(255), link varchar(255));`
+        );
+    }
+});
+
+module.exports = pool;
