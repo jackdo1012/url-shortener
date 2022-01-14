@@ -5,7 +5,7 @@ class MainController {
             const full = await pool.query("SELECT * FROM url_list");
             res.render("index", { data: full.rows });
         } catch (error) {
-            console.log(error);
+            return res.json({ success: false, error: error });
         }
     }
     async redirect(req, res) {
