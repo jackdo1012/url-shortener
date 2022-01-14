@@ -23,6 +23,9 @@ class MainController {
         try {
             let { slug, link } = req.body;
             const check = /['"]|(--)| /;
+            if (slug === "" || link === "") {
+                return res.redirect("/");
+            }
             const slugFind = await pool.query(
                 "SELECT * FROM url_list WHERE slug = $1",
                 [slug]
